@@ -6,7 +6,7 @@ EXE=pong
 LIBS=-lglfw
 
 # All source files
-SRC=src/main.cpp
+SRC=src/main.cpp src/model/pong.cpp
 
 # All object files
 OBJ=$(SRC:src/%.cpp=bin/obj/%.o)

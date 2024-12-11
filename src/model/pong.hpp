@@ -7,20 +7,20 @@
 #include "scorechangelistener.hpp"
 
 class pong{
-
-	enum gamestate{
-		PLAYING,
-		GAMEOVER
-	};
-
-	enum paddle_commands{
-		NONE_LEFT,
-		UP_LEFT,
-		DOWN_LEFT,
-		NONE_RIGHT,
-		UP_RIGHT,
-		DOWN_RIGHT
-	};
+	public:
+		enum gamestate{
+			PLAYING,
+			GAMEOVER
+		};
+	
+		enum paddle_commands{
+			NONE_LEFT,
+			UP_LEFT,
+			DOWN_LEFT,
+			NONE_RIGHT,
+			UP_RIGHT,
+			DOWN_RIGHT
+		};
 
 	private:
 		int score_left;

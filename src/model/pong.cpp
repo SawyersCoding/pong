@@ -1,8 +1,9 @@
 #include "pong.hpp"
 
-pong::pong(pongsettings settings, float width, float height, float scoreboard_height) : settings(settings), width(width), height(height), scoreboard_height(scoreboard_height)
+pong::pong(pongsettings settings, float width, float height, float scoreboard_height) : width(width), height(height), scoreboard_height(scoreboard_height)
 {
 	// Initialize scores
+	this->settings = settings;
 	score_left = 0;
 	score_right = 0;
 

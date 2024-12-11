@@ -3,13 +3,13 @@
 struct transform2D{
 
 	public:
-	const static float X_DEFAULT = 0.0f;
-	const static float Y_DEFAULT = 0.0f;
-	const static float ZROT_DEG_DEFAULT = 0.0f;
-	const static float WIDTH_DEFAULT = 1.0f;
-	const static float HEIGHT_DEFAULT = 1.0f;
-	const static float XVELOCITY_DEFAULT = 0.0f;
-	const static float YVELOCITY_DEFAULT = 0.0f;
+	constexpr static float X_DEFAULT = 0.0f;
+	constexpr static float Y_DEFAULT = 0.0f;
+	constexpr static float ZROT_DEG_DEFAULT = 0.0f;
+	constexpr static float WIDTH_DEFAULT = 1.0f;
+	constexpr static float HEIGHT_DEFAULT = 1.0f;
+	constexpr static float XVELOCITY_DEFAULT = 0.0f;
+	constexpr static float YVELOCITY_DEFAULT = 0.0f;
 
 	float x;
 	float y;
