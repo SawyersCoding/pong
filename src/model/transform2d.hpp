@@ -1,5 +1,4 @@
-#ifndef TRANSFORM2D_HPP
-#define TRANSFORM2D_HPP
+#pragma once
 
 struct transform2D{
 
@@ -23,5 +22,3 @@ struct transform2D{
 	transform2D(float x = X_DEFAULT, float y = Y_DEFAULT, float zrot_deg = ZROT_DEG_DEFAULT, float width = WIDTH_DEFAULT, float height = HEIGHT_DEFAULT, float xvelocity = XVELOCITY_DEFAULT, float yvelocity = YVELOCITY_DEFAULT) : x(x), y(y), zrot_deg(zrot_deg), width(width), height(height), xvelocity(xvelocity), yvelocity(yvelocity) {}
 	
 };
-
-#endif // TRANSFORM2D_HPP
