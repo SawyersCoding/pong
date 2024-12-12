@@ -1,6 +1,6 @@
 #include "pong.hpp"
 
-pong::pong(pongsettings settings, float width, float height, float scoreboard_height) : width(width), height(height), scoreboard_height(scoreboard_height)
+pong::pong(pongsettings settings, float width, float height, float score_height) : width(width), height(height), score_height(score_height)
 {
 	// Initialize scores
 	this->settings = settings;
@@ -9,7 +9,7 @@ pong::pong(pongsettings settings, float width, float height, float scoreboard_he
 
 	// Create ball
 	float ballx = width / 2.0f;
-	float bally = (height - scoreboard_height) / 2.0f;
+	float bally = (height - score_height) / 2.0f;
 	float ballzrot_deg = 0.0f;
 	float ballwidth = 1.0f;
 	float ballheight = 1.0f;
@@ -20,7 +20,7 @@ pong::pong(pongsettings settings, float width, float height, float scoreboard_he
 
 	// Create left paddle
 	float paddleleftx = settings.paddle_width_left;
-	float paddlelefty = (height - scoreboard_height) / 2.0f;
+	float paddlelefty = (height - score_height) / 2.0f;
 	float paddleleftzrot_deg = 0.0f;
 	float paddleleftwidth = settings.paddle_width_left;
 	float paddleleftheight = settings.paddle_height_left;
@@ -30,7 +30,7 @@ pong::pong(pongsettings settings, float width, float height, float scoreboard_he
 
 	// Create right paddle
 	float paddlerightx = width - settings.paddle_width_right;
-	float paddlerighty = (height - scoreboard_height) / 2.0f;
+	float paddlerighty = (height - score_height) / 2.0f;
 	float paddlerightzrot_deg = 0.0f;
 	float paddlerightwidth = settings.paddle_width_right;
 	float paddlerightheight = settings.paddle_height_right;
@@ -50,6 +50,21 @@ void pong::update(float dt)
 	if(score_left >= settings.winning_score || score_right >= settings.winning_score){
 		state = GAMEOVER;
 	}
+}
+
+int pong::get_width()
+{
+	return width;
+}
+
+int pong::get_height()
+{
+	return height;
+}
+
+int pong::get_score_height()
+{
+	return score_height;
 }
 
 int pong::get_score_left()
@@ -126,7 +141,7 @@ void pong::check_collisions()
 {
 	// Check for collisions
 	// Top/bottom wall collisions
-	if(ball.transform.y + ball.transform.height / 2.0f > height - scoreboard_height || ball.transform.y - ball.transform.height / 2.0f < 0.0f)
+	if(ball.transform.y + ball.transform.height / 2.0f > height || ball.transform.y - ball.transform.height / 2.0f < 0.0f)
 	{
 		ball.transform.yvelocity = -ball.transform.yvelocity;
 	}
@@ -165,7 +180,7 @@ void pong::check_score()
 	if(ball.transform.x < 0.0f){
 		score_right++;
 		ball.transform.x = width / 2.0f;
-		ball.transform.y = (height - scoreboard_height) / 2.0f;
+		ball.transform.y = (height - score_height) / 2.0f;
 		ball.transform.xvelocity = -settings.ball_start_speed;
 		ball.transform.yvelocity = 0.0f;
 		notify_scorechangelisteners();
@@ -173,7 +188,7 @@ void pong::check_score()
 	else if(ball.transform.x > width){
 		score_left++;
 		ball.transform.x = width / 2.0f;
-		ball.transform.y = (height - scoreboard_height) / 2.0f;
+		ball.transform.y = (height - score_height) / 2.0f;
 		ball.transform.xvelocity = settings.ball_start_speed;
 		ball.transform.yvelocity = 0.0f;
 		notify_scorechangelisteners();

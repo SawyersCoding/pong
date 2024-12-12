@@ -27,7 +27,7 @@ class pong{
 		int score_right;
 		float width;
 		float height;
-		float scoreboard_height;
+		float score_height;
 		gamestate state;
 		pongentity ball;
 		pongentity paddle_left;
@@ -36,11 +36,14 @@ class pong{
 		std::vector<scorechangelistener*> listeners;
 
 	public:
-		pong(pongsettings settings, float width = 20.0f, float height = 12.0f, float scoreboard_height = 2.0f);
+		pong(pongsettings settings, float width = 20.0f, float height = 12.0f, float score_height = 2.0f);
 
 	public:
 		void paddle_command(paddle_commands command);
 		void update(float dt);
+		int get_width();
+		int get_height();
+		int get_score_height();
 		int get_score_left();
 		int get_score_right();
 		gamestate get_state();

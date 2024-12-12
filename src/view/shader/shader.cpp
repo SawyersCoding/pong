@@ -1,6 +1,6 @@
 // More or less as seen in: https://learnopengl.com/Getting-started/Shaders
 
-#include "shader.h"
+#include "shader.hpp"
 #include <filesystem>
 
 shader::shader(std::string vertexPath, std::string fragmentPath) {
