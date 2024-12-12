@@ -1,9 +1,12 @@
 #include "pongcontroller.hpp"
+#include <thread>
 
 pongcontroller::pongcontroller()
 {
 	// Would be nice to load settings from file to avoid recompiles
 	settings = new pongsettings();
+	settings->ball_start_speed = 10.0f;
+	settings->ball_speed_increment = 0.1f;
 	pong_model = new pong(*settings);
 	pong_model->add_scorechangelistener(this);
 
@@ -28,14 +31,27 @@ pongcontroller::~pongcontroller()
 void pongcontroller::play()
 {
 	// Timing variables
+	int countdown = 3;
 	float current_time;
 	float last_frame;
 	float delta_time;
 
 	GLFWwindow *window = view->get_window();
 
+	// Countdown to start of game
+	pong_model->update(0.0f);
+	pong_model->get_positions(bx, by, lx, ly, rx, ry);
+	for(int i = countdown; i > 0; i--){
+		view->render_pong(i, i, bx, by, lx, ly, rx, ry);
+		glfwPollEvents();
+
+		// Wait for 1 second
+		std::this_thread::sleep_for(std::chrono::seconds(1));
+	}
+
 	last_frame = glfwGetTime();
 	delta_time = 0.0f;
+	pong_model->get_scores(score_left, score_right);
 	// Game loop
 	while(!glfwWindowShouldClose(window)){
 		// std::cout << "RENDERING..." << std::endl;
@@ -49,10 +65,15 @@ void pongcontroller::play()
 
 		// Update pong model
 		pong_model->update(delta_time);
-		pong_model->get_positions(bx, by, lx, ly, rx, ry);
 
-		// Render pong view
-		view->render_pong(0, 0, bx, by, lx, ly, rx, ry);
+		if(pong_model->get_state() == pong::GAMEOVER){
+			glfwSetWindowShouldClose(window, true);
+		}
+		else{
+			pong_model->get_positions(bx, by, lx, ly, rx, ry);
+			// Render pong view
+			view->render_pong(score_left, score_right, bx, by, lx, ly, rx, ry);
+		}
 		
 		glfwPollEvents();
 	}
@@ -92,6 +113,4 @@ void pongcontroller::process_input(GLFWwindow *window)
 void pongcontroller::on_score_changed()
 {
 	pong_model->get_scores(score_left, score_right);
-
-	std::cout << "Score: " << score_left << "-" << score_right << std::endl;
 }

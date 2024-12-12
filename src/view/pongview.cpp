@@ -3,9 +3,13 @@
 
 pongview::pongview(int width, int height, int score_height, float paddle_width_left, float paddle_height_left, float paddle_width_right, float paddle_height_right, float ball_size)
 {
-	px_width = width * px_per_unit;
-	px_height = height * px_per_unit;
-	px_score_height = score_height * px_per_unit;
+	px_width = width * PX_PER_UNIT;
+	px_height = height * PX_PER_UNIT;
+	px_score_height = score_height * PX_PER_UNIT;
+
+	dy = (float)height - score_height / 2.0f;
+	dx_left = width / 3.0f;
+	dx_right = 2.0f * width / 3.0f;
 
 	// Initialize GLFW
 	if(!glfwInit()){
@@ -44,35 +48,41 @@ pongview::pongview(int width, int height, int score_height, float paddle_width_l
 
 	// Initialize shader
 	pong_shader = new shader("src/view/shader/vertexshader.glsl", "src/view/shader/fragmentshader.glsl");
+	digit_shader = new shader("src/view/shader/digitvertexshader.glsl", "src/view/shader/digitfragmentshader.glsl");
 
+	dview = new digitview(score_height * DIGIT_HEIGHT_FACTOR);
 	bview = new ballview(ball_size);
 	pview = new paddleview(paddle_width_left, paddle_height_left);
 
-	glEnable(GL_DEPTH_TEST);
-
-	view = glm::lookAt(camera_pos, camera_target, camera_up);
+	view = glm::lookAt(CAMERA_POS, CAMERA_TARGET, CAMERA_UP);
 	projection = glm::ortho(0.0f, (float)width, 0.0f, (float)height, 0.1f, 100.0f);
-	// projection = glm::mat4(1.0f);
 
 	pong_shader->use();
 	pong_shader->set_mat4("view", view);
 	pong_shader->set_mat4("projection", projection);
+	digit_shader->use();
+	digit_shader->set_mat4("view", view);
+	digit_shader->set_mat4("projection", projection);
 }
 
 pongview::~pongview()
 {
+	delete dview;
 	delete bview;
 	delete pview;
 	delete pong_shader;
+	delete digit_shader;
 	glfwTerminate();
 }
 
 void pongview::render_pong(int score_left, int score_right, float bx, float by, float lx, float ly, float rx, float ry)
 {
 	// Clear screen
-	glClearColor(0.15f, 0.15f, 0.15f, 1.0f); // black background
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
+	dview->render_digit(digit_shader, score_left, dx_left, dy);
+	dview->render_digit(digit_shader, score_right, dx_right, dy);
 	bview->render_ball(pong_shader, bx, by);
 	pview->render_paddle(pong_shader, lx, ly);
 	pview->render_paddle(pong_shader, rx, ry);

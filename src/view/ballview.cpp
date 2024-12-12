@@ -35,6 +35,7 @@ ballview::~ballview()
 
 void ballview::render_ball(shader *pong_shader, float bx, float by)
 {
+	pong_shader->use();
 	glm::mat4 model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(bx, by, 0.0f));
 	pong_shader->set_mat4("model", model);
