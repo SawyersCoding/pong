@@ -9,7 +9,7 @@ pong::pong(pongsettings settings, float width, float height, float score_height)
 
 	// Create ball
 	float ballx = width / 2.0f;
-	float bally = (height - score_height) / 2.0f;
+	float bally = height / 2.0f;
 	float ballzrot_deg = 0.0f;
 	float ballwidth = 1.0f;
 	float ballheight = 1.0f;
@@ -20,7 +20,7 @@ pong::pong(pongsettings settings, float width, float height, float score_height)
 
 	// Create left paddle
 	float paddleleftx = settings.paddle_width_left;
-	float paddlelefty = (height - score_height) / 2.0f;
+	float paddlelefty = height / 2.0f;
 	float paddleleftzrot_deg = 0.0f;
 	float paddleleftwidth = settings.paddle_width_left;
 	float paddleleftheight = settings.paddle_height_left;
@@ -30,7 +30,7 @@ pong::pong(pongsettings settings, float width, float height, float score_height)
 
 	// Create right paddle
 	float paddlerightx = width - settings.paddle_width_right;
-	float paddlerighty = (height - score_height) / 2.0f;
+	float paddlerighty = height / 2.0f;
 	float paddlerightzrot_deg = 0.0f;
 	float paddlerightwidth = settings.paddle_width_right;
 	float paddlerightheight = settings.paddle_height_right;
@@ -43,9 +43,9 @@ void pong::update(float dt)
 {
 	if(get_state() == GAMEOVER) return;
 
-	update_positions(dt);
-	check_collisions();
 	check_score();
+	check_collisions();
+	update_positions(dt);
 	// Check for game over
 	if(score_left >= settings.winning_score || score_right >= settings.winning_score){
 		state = GAMEOVER;
@@ -157,7 +157,7 @@ void pong::check_paddle_collision(pongentity &paddle)
 	bool paddle_can_reach_y;
 	bool is_negative_new_xvelocity;
 	
-	paddle_can_reach_x = fabs(ball.transform.x - paddle.transform.x) < (ball.transform.width + paddle.transform.width) / 2.0f;
+	paddle_can_reach_x = fabs(ball.transform.x - paddle.transform.x) < paddle.transform.width / 2.0f;
 	paddle_can_reach_y = fabs(ball.transform.y - paddle.transform.y) < (ball.transform.height + paddle.transform.height) / 2.0f;
 	
 	if(paddle_can_reach_x && paddle_can_reach_y){
@@ -180,7 +180,7 @@ void pong::check_score()
 	if(ball.transform.x < 0.0f){
 		score_right++;
 		ball.transform.x = width / 2.0f;
-		ball.transform.y = (height - score_height) / 2.0f;
+		ball.transform.y = height / 2.0f;
 		ball.transform.xvelocity = -settings.ball_start_speed;
 		ball.transform.yvelocity = 0.0f;
 		notify_scorechangelisteners();
@@ -188,7 +188,7 @@ void pong::check_score()
 	else if(ball.transform.x > width){
 		score_left++;
 		ball.transform.x = width / 2.0f;
-		ball.transform.y = (height - score_height) / 2.0f;
+		ball.transform.y = height / 2.0f;
 		ball.transform.xvelocity = settings.ball_start_speed;
 		ball.transform.yvelocity = 0.0f;
 		notify_scorechangelisteners();
