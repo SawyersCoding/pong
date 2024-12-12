@@ -1,6 +1,7 @@
 # Pong
 
 <!-- Reserve space of an image of the game -->
+![First Working Game](resources/game_play.png)
 
 ![C](https://img.shields.io/badge/language-C-blue)
 ![C++](https://img.shields.io/badge/language-C++-blue)
