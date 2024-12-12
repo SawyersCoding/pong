@@ -7,7 +7,7 @@
 ![C++](https://img.shields.io/badge/language-C++-blue)
 ![GLSL](https://img.shields.io/badge/language-GLSL-blue)
 ![Linux](https://img.shields.io/badge/OS-Linux-lightgrey)
-![Make](https://img.shields.io/badge/build-Make-yellow)
+![Make](https://img.shields.io/badge/build-Make-orange)
 ![OpenGL](https://img.shields.io/badge/library-OpenGL-green)
 ![GLM](https://img.shields.io/badge/library-GLM-green)
 ![GLAD](https://img.shields.io/badge/library-GLAD-green)
