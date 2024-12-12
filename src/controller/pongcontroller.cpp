@@ -5,8 +5,6 @@ pongcontroller::pongcontroller()
 {
 	// Would be nice to load settings from file to avoid recompiles
 	settings = new pongsettings();
-	settings->ball_start_speed = 10.0f;
-	settings->ball_speed_increment = 0.1f;
 	pong_model = new pong(*settings);
 	pong_model->add_scorechangelistener(this);
 
