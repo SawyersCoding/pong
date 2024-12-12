@@ -1,6 +1,7 @@
 # Pong
 
 <!-- Reserve space of an image of the game -->
+![First Working Game](resources/game_play.png)
 
 ![C](https://img.shields.io/badge/language-C-blue)
 ![C++](https://img.shields.io/badge/language-C++-blue)
@@ -9,9 +10,10 @@
 ![Make](https://img.shields.io/badge/build-Make-yellow)
 ![OpenGL](https://img.shields.io/badge/library-OpenGL-green)
 ![GLM](https://img.shields.io/badge/library-GLM-green)
-![LearnOpenGL](https://img.shields.io/badge/tutorial-learnopengl.com-orange)
+![GLAD](https://img.shields.io/badge/library-GLAD-green)
+![MVC](https://img.shields.io/badge/architecture-MVC-red)
 
-Pong created entirly from scratch with OpenGL. All "art" and sound was created by me.
+Pong created entirly from scratch with OpenGL. All "art", sound, and even the font was created by me.
 
 ## Getting Started
 <!-- Install dependancies -->
