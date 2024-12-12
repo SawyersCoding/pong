@@ -35,6 +35,7 @@ paddleview::~paddleview()
 
 void paddleview::render_paddle(shader *pong_shader, float px, float py)
 {
+	pong_shader->use();
 	glm::mat4 model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(px, py, 0.0f));
 	pong_shader->set_mat4("model", model);

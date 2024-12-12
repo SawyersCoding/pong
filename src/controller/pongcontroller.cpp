@@ -49,10 +49,15 @@ void pongcontroller::play()
 
 		// Update pong model
 		pong_model->update(delta_time);
-		pong_model->get_positions(bx, by, lx, ly, rx, ry);
 
-		// Render pong view
-		view->render_pong(0, 0, bx, by, lx, ly, rx, ry);
+		if(pong_model->get_state() == pong::GAMEOVER){
+			glfwSetWindowShouldClose(window, true);
+		}
+		else{
+			pong_model->get_positions(bx, by, lx, ly, rx, ry);
+			// Render pong view
+			view->render_pong(score_left, score_right, bx, by, lx, ly, rx, ry);
+		}
 		
 		glfwPollEvents();
 	}
@@ -92,6 +97,4 @@ void pongcontroller::process_input(GLFWwindow *window)
 void pongcontroller::on_score_changed()
 {
 	pong_model->get_scores(score_left, score_right);
-
-	std::cout << "Score: " << score_left << "-" << score_right << std::endl;
 }
