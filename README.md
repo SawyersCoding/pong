@@ -12,7 +12,7 @@
 ![GLAD](https://img.shields.io/badge/library-GLAD-green)
 ![MVC](https://img.shields.io/badge/architecture-MVC-red)
 
-Pong created entirly from scratch with OpenGL. All "art" and sound was created by me.
+Pong created entirly from scratch with OpenGL. All "art", sound, and even the font was created by me.
 
 ## Getting Started
 <!-- Install dependancies -->
