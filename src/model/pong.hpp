@@ -14,12 +14,12 @@ class pong{
 		};
 	
 		enum paddle_commands{
-			NONE_LEFT,
-			UP_LEFT,
-			DOWN_LEFT,
-			NONE_RIGHT,
-			UP_RIGHT,
-			DOWN_RIGHT
+			LEFT_NONE,
+			LEFT_UP,
+			LEFT_DOWN,
+			RIGHT_NONE,
+			RIGHT_UP,
+			RIGHT_DOWN
 		};
 
 	private:
@@ -44,8 +44,7 @@ class pong{
 		int get_width();
 		int get_height();
 		int get_score_height();
-		int get_score_left();
-		int get_score_right();
+		void get_scores(int &score_left, int &score_right);
 		gamestate get_state();
 		void get_positions(float &ball_x, float &ball_y, float &paddle_left_x, float &paddle_left_y, float &paddle_right_x, float &paddle_right_y);
 		void add_scorechangelistener(scorechangelistener *listener);

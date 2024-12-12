@@ -13,7 +13,7 @@ void process_input(GLFWwindow* window, pong& p);
 int main(){
 	
 	// Initialize pong model
-	int score_left, score_right;
+	int pscore_left, score_left, pscore_right, score_right;
 	float bx, by, lx, ly, rx, ry;
 	float current_time;
 	float last_frame;
@@ -46,6 +46,17 @@ int main(){
 		// Update pong model
 		p.update(delta_time);
 		p.get_positions(bx, by, lx, ly, rx, ry);
+		pscore_left = score_left;
+		pscore_right = score_right;
+		p.get_scores(score_left, score_right);
+		if(pscore_left != score_left){
+			std::cout << "LEFT SCORES!!" << std::endl;
+			std::cout << score_left << "-" << score_right << std::endl;
+		}
+		if(pscore_right != score_right){
+			std::cout << "RIGHT SCORES!!" << std::endl;
+			std::cout << score_left << "-" << score_right << std::endl;
+		}
 		// Render pong view
 		view.render_pong(0, 0, bx, by, lx, ly, rx, ry);
 		
@@ -61,5 +72,27 @@ void process_input(GLFWwindow *window, pong &p)
 {
 	if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS){
 		glfwSetWindowShouldClose(window, true);
+	}
+
+	// Left controls WASD
+	if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS){
+		p.paddle_command(pong::LEFT_UP);
+	}
+	else if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS){
+		p.paddle_command(pong::LEFT_DOWN);
+	}
+	else{
+		p.paddle_command(pong::LEFT_NONE);
+	}
+
+	// Right controls arrow keys
+	if(glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS){
+		p.paddle_command(pong::RIGHT_UP);
+	}
+	else if(glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS){
+		p.paddle_command(pong::RIGHT_DOWN);
+	}
+	else{
+		p.paddle_command(pong::RIGHT_NONE);
 	}
 }

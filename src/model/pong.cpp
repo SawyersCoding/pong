@@ -67,14 +67,10 @@ int pong::get_score_height()
 	return score_height;
 }
 
-int pong::get_score_left()
+void pong::get_scores(int &score_left, int &score_right)
 {
-	return score_left;
-}
-
-int pong::get_score_right()
-{
-	return score_right;
+	score_left = this->score_left;
+	score_right = this->score_right;
 }
 
 pong::gamestate pong::get_state()
@@ -105,22 +101,22 @@ void pong::clear_scorechangelisteners()
 void pong::paddle_command(paddle_commands command)
 {
 	switch(command){
-		case UP_LEFT:
+		case LEFT_UP:
 			paddle_left.transform.yvelocity = settings.paddle_speed_left;
 			break;
-		case DOWN_LEFT:
+		case LEFT_DOWN:
 			paddle_left.transform.yvelocity = -settings.paddle_speed_left;
 			break;
-		case NONE_LEFT:
+		case LEFT_NONE:
 			paddle_left.transform.yvelocity = 0.0f;
 			break;
-		case UP_RIGHT:
+		case RIGHT_UP:
 			paddle_right.transform.yvelocity = settings.paddle_speed_right;
 			break;
-		case DOWN_RIGHT:
+		case RIGHT_DOWN:
 			paddle_right.transform.yvelocity = -settings.paddle_speed_right;
 			break;
-		case NONE_RIGHT:
+		case RIGHT_NONE:
 			paddle_right.transform.yvelocity = 0.0f;
 			break;
 	}
