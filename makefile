@@ -6,13 +6,12 @@ EXE=pong
 LIBS=-lglfw
 
 # All source files
-SRC=src/main.cpp src/model/pong.cpp src/view/pongview.cpp src/view/glad.c src/view/paddleview.cpp src/view/ballview.cpp src/view/shader/shader.cpp
+SRC=src/main.cpp src/model/pong.cpp src/view/pongview.cpp src/view/glad.c src/view/paddleview.cpp src/view/ballview.cpp src/view/shader/shader.cpp src/controller/pongcontroller.cpp
 
 # All object files
 OBJ=$(SRC:src/%.cpp=bin/obj/%.o)
 OBJ:=$(OBJ:src/%.c=bin/obj/%.o)
 
-# Compile pong
 $(EXE): bin/$(EXE)
 
 bin/$(EXE): $(OBJ) | bin

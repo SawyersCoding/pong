@@ -128,6 +128,23 @@ void pong::update_positions(float dt)
 	paddle_left.transform.y += paddle_left.transform.yvelocity * dt;
 	paddle_right.transform.y += paddle_right.transform.yvelocity * dt;
 
+	// Clamp paddles
+	// Left
+	if(paddle_left.transform.y > height - paddle_left.transform.height / 2.0f) {
+		paddle_left.transform.y = height - paddle_left.transform.height / 2.0f;
+	}
+	if(paddle_left.transform.y < paddle_left.transform.height / 2.0f) {
+		paddle_left.transform.y = paddle_left.transform.height / 2.0f;
+	}
+
+	// Right
+	if(paddle_right.transform.y > height - paddle_right.transform.height / 2.0f) {
+		paddle_right.transform.y = height - paddle_right.transform.height / 2.0f;
+	}
+	if(paddle_right.transform.y < paddle_right.transform.height / 2.0f) {
+		paddle_right.transform.y = paddle_right.transform.height / 2.0f;
+	}
+
 	// Update ball
 	ball.transform.x += ball.transform.xvelocity * dt;
 	ball.transform.y += ball.transform.yvelocity * dt;

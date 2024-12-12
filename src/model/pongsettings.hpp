@@ -3,9 +3,9 @@
 struct pongsettings{
 
 	private:
-		constexpr static float PADDLE_WIDTH_LEFT_DEFAULT = 1.0f;
+		constexpr static float PADDLE_WIDTH_LEFT_DEFAULT = 0.5f;
 		constexpr static float PADDLE_HEIGHT_LEFT_DEFAULT = 3.0f;
-		constexpr static float PADDLE_WIDTH_RIGHT_DEFAULT = 1.0f;
+		constexpr static float PADDLE_WIDTH_RIGHT_DEFAULT = 0.5f;
 		constexpr static float PADDLE_HEIGHT_RIGHT_DEFAULT = 3.0f;
 		constexpr static float PADDLE_MAX_REFLECTION_ANGLE_DEG_DEFAULT = 60.0f;
 		constexpr static float PADDLE_SPEED_LEFT_DEFAULT = 5.0f;
