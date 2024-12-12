@@ -7,6 +7,11 @@
 #include "scorechangelistener.hpp"
 
 class pong{
+	private:
+		constexpr static float WIDTH_DEFAULT = 60.0f;
+		constexpr static float HEIGHT_DEFAULT = 30.0f;
+		constexpr static float SCORE_HEIGHT_DEFAULT = 4.0f;
+
 	public:
 		enum gamestate{
 			PLAYING,
@@ -36,7 +41,7 @@ class pong{
 		std::vector<scorechangelistener*> listeners;
 
 	public:
-		pong(pongsettings settings, float width = 20.0f, float height = 12.0f, float score_height = 2.0f);
+		pong(pongsettings settings, float width = WIDTH_DEFAULT, float height = HEIGHT_DEFAULT, float score_height = SCORE_HEIGHT_DEFAULT);
 
 	public:
 		void paddle_command(paddle_commands command);
