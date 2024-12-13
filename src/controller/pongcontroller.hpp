@@ -5,8 +5,9 @@
 #include "../model/pongsettings.hpp"
 #include "../model/scorechangelistener.hpp"
 #include "../view/pongview.hpp"
+#include "../view/audio/audioplayer.hpp"
 
-class pongcontroller : public scorechangelistener {
+class pongcontroller : public scorechangelistener, public collisionlistener{
 
 	private:
 		// pong state variables
@@ -16,6 +17,7 @@ class pongcontroller : public scorechangelistener {
 		pong *pong_model;
 		pongsettings *settings;
 		pongview *view;
+		audioplayer *audio;
 
 	public:
 		pongcontroller();
@@ -25,5 +27,6 @@ class pongcontroller : public scorechangelistener {
 		void play();
 		void process_input(GLFWwindow *window);
 		void on_score_changed() override;
+		void on_collision() override;
 
 };

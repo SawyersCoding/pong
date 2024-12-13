@@ -7,6 +7,8 @@ pongcontroller::pongcontroller()
 	settings = new pongsettings();
 	pong_model = new pong(*settings);
 	pong_model->add_scorechangelistener(this);
+	pong_model->add_collisionlistener(this);
+	audio = new audioplayer();
 
 	view = new pongview(pong_model->get_width(), 
 						pong_model->get_height(), 
@@ -24,6 +26,7 @@ pongcontroller::~pongcontroller()
 	delete settings;
 	delete pong_model;
 	delete view;
+	delete audio;
 }
 
 void pongcontroller::play()
@@ -44,7 +47,9 @@ void pongcontroller::play()
 		glfwPollEvents();
 
 		// Wait for 1 second
-		std::this_thread::sleep_for(std::chrono::seconds(1));
+		std::this_thread::sleep_for(std::chrono::milliseconds(500));
+		audio->play_sfx(i > 1 ? audioplayer::COUNT : audioplayer::GO);
+		std::this_thread::sleep_for(std::chrono::milliseconds(500));
 	}
 
 	last_frame = glfwGetTime();
@@ -111,4 +116,10 @@ void pongcontroller::process_input(GLFWwindow *window)
 void pongcontroller::on_score_changed()
 {
 	pong_model->get_scores(score_left, score_right);
+	audio->play_sfx(audioplayer::POINT);
+}
+
+void pongcontroller::on_collision()
+{
+	audio->play_sfx(audioplayer::PING);
 }

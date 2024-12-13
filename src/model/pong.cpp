@@ -90,12 +90,22 @@ void pong::get_positions(float &ball_x, float &ball_y, float &paddle_left_x, flo
 
 void pong::add_scorechangelistener(scorechangelistener *listener)
 {
-	listeners.push_back(listener);
+	score_change_listeners.push_back(listener);
 }
 
 void pong::clear_scorechangelisteners()
 {
-	listeners.clear();
+	score_change_listeners.clear();
+}
+
+void pong::add_collisionlistener(collisionlistener *listener)
+{
+	collision_listeners.push_back(listener);
+}
+
+void pong::clear_collisionlisteners()
+{
+	collision_listeners.clear();
 }
 
 void pong::paddle_command(paddle_commands command)
@@ -154,9 +164,9 @@ void pong::check_collisions()
 {
 	// Check for collisions
 	// Top/bottom wall collisions
-	if(ball.transform.y + ball.transform.height / 2.0f > height || ball.transform.y - ball.transform.height / 2.0f < 0.0f)
-	{
+	if((ball.transform.y + ball.transform.height / 2.0f > height && ball.transform.yvelocity > 0.0f) || (ball.transform.y - ball.transform.height / 2.0f < 0.0f && ball.transform.yvelocity < 0.0f)){
 		ball.transform.yvelocity = -ball.transform.yvelocity;
+		notify_collisionlisteners();
 	}
 
 	// Checking velocity direction helps avoid extra collisions with same paddle
@@ -185,6 +195,8 @@ void pong::check_paddle_collision(pongentity &paddle)
 		ball.transform.xvelocity = new_speed * cos(reflection_angle_deg * M_PI / 180.0f);
 		if(is_negative_new_xvelocity) ball.transform.xvelocity = -ball.transform.xvelocity;
 		ball.transform.yvelocity = new_speed * sin(reflection_angle_deg * M_PI / 180.0f);
+
+		notify_collisionlisteners();
 	}
 }
 
@@ -210,7 +222,14 @@ void pong::check_score()
 
 void pong::notify_scorechangelisteners()
 {
-	for(scorechangelistener *listener : listeners){
+	for(scorechangelistener *listener : score_change_listeners){
 		listener->on_score_changed();
+	}
+}
+
+void pong::notify_collisionlisteners()
+{
+	for(collisionlistener *listener : collision_listeners){
+		listener->on_collision();
 	}
 }
