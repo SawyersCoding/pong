@@ -13,12 +13,20 @@
 ![GLAD](https://img.shields.io/badge/library-GLAD-green)
 ![MVC](https://img.shields.io/badge/architecture-MVC-red)
 
-Pong created entirly from scratch with OpenGL. All "art", sound, and even the font was created by me.
+Pong created entirly from scratch with OpenGL.
 
-## Getting Started
-<!-- Install dependancies -->
+"Art" and text was created using [GIMP](https://www.gimp.org/) or shader shenanigans. SFX were created using [jsfxr](https://sfxr.me/).
 
 ## Compiling
+<!-- Install dependencies -->
+SFML
+
+	sudo apt-get install libsfml-dev
+
+GLFW?
+
+glad?
+
 <!-- Explain compile instructions -->
 
 ## Have Fun!
