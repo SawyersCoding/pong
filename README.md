@@ -42,4 +42,15 @@ To complete the compilation, simply run the makefile with
 
 Your executable will be found at `bin/pong`.
 
-### Have Fun!
+## Playing
+
+The left paddle is controlled using the `W` and `S` keys to move up and down respectively. The same is true for the right paddle using the `up arrow` and `down arrow` keys. Press the `ESC` key to close the application.
+
+Each time the ball hits a paddle, the ball's speed will increase. The player that most recently lost a point will be given the first serve of the next round. Left player will always start with the first serve of the game.
+
+The winner is the first to get to 10 points.
+
+## To do
+
+ - Optional single player mode
+ - 3D perspective version
