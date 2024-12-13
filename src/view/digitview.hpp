@@ -6,7 +6,7 @@
 class digitview{
 
 	private:
-		const static int NDIGITS = 10;
+		const static int NDIGITS = 12;
 
 	private:
 		int img_width;
