@@ -23,9 +23,10 @@ SFML
 
 	sudo apt-get install libsfml-dev
 
-GLFW?
+[GLFW](https://shnoh171.github.io/gpu%20and%20gpu%20programming/2019/08/26/installing-glfw-on-ubuntu.html)
 
-glad?
+	sudo apt-get install libglfw3
+	sudo apt-get install libglfw3-dev
 
 <!-- Explain compile instructions -->
 
