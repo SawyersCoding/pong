@@ -11,8 +11,8 @@ struct pongsettings{
 		constexpr static float PADDLE_SPEED_LEFT_DEFAULT = 5.0f;
 		constexpr static float PADDLE_SPEED_RIGHT_DEFAULT = 5.0f;
 		constexpr static float BALL_SIZE_DEFAULT = 0.25f;
-		constexpr static float BALL_START_SPEED_DEFAULT = 5.0f;
-		constexpr static float BALL_SPEED_INCREMENT_DEFAULT = 1.0f;
+		constexpr static float BALL_START_SPEED_DEFAULT = 10.0f;
+		constexpr static float BALL_SPEED_INCREMENT_DEFAULT = 0.5f;
 		const static int WINNING_SCORE_DEFAULT = 10;
 	
 	public:

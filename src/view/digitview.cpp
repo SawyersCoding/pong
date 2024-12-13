@@ -51,6 +51,9 @@ digitview::~digitview()
 
 void digitview::render_digit(shader *digit_shader, int digit, float x, float y)
 {
+	// Do not render if digit is negative
+	if(digit < 0) return;
+
 	float umin, vmin, umax, vmax;
 	get_texture_coords(digit, umin, vmin, umax, vmax);
 

@@ -5,6 +5,7 @@
 #include "pongentity.hpp"
 #include "pongsettings.hpp"
 #include "scorechangelistener.hpp"
+#include "collisionlistener.hpp"
 
 class pong{
 	private:
@@ -38,7 +39,9 @@ class pong{
 		pongentity paddle_left;
 		pongentity paddle_right;
 		pongsettings settings;
-		std::vector<scorechangelistener*> listeners;
+		std::vector<scorechangelistener*> score_change_listeners;
+		std::vector<collisionlistener*> collision_listeners;
+
 
 	public:
 		pong(pongsettings settings, float width = WIDTH_DEFAULT, float height = HEIGHT_DEFAULT, float score_height = SCORE_HEIGHT_DEFAULT);
@@ -46,6 +49,7 @@ class pong{
 	public:
 		void paddle_command(paddle_commands command);
 		void update(float dt);
+		void reset();
 		int get_width();
 		int get_height();
 		int get_score_height();
@@ -54,6 +58,8 @@ class pong{
 		void get_positions(float &ball_x, float &ball_y, float &paddle_left_x, float &paddle_left_y, float &paddle_right_x, float &paddle_right_y);
 		void add_scorechangelistener(scorechangelistener *listener);
 		void clear_scorechangelisteners();
+		void add_collisionlistener(collisionlistener *listener);
+		void clear_collisionlisteners();
 
 	private:
 		void update_positions(float dt);
@@ -61,5 +67,6 @@ class pong{
 		void check_paddle_collision(pongentity &paddle);
 		void check_score();
 		void notify_scorechangelisteners();
+		void notify_collisionlisteners();
 
 };
