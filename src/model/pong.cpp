@@ -52,6 +52,17 @@ void pong::update(float dt)
 	}
 }
 
+void pong::reset()
+{
+	score_left = 0;
+	score_right = 0;
+	ball.transform.x = width / 2.0f;
+	ball.transform.y = height / 2.0f;
+	ball.transform.xvelocity = -settings.ball_start_speed;
+	ball.transform.yvelocity = 0.0f;
+	state = PLAYING;
+}
+
 int pong::get_width()
 {
 	return width;

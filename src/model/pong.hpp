@@ -49,6 +49,7 @@ class pong{
 	public:
 		void paddle_command(paddle_commands command);
 		void update(float dt);
+		void reset();
 		int get_width();
 		int get_height();
 		int get_score_height();

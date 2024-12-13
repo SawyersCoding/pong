@@ -31,76 +31,80 @@ pongcontroller::~pongcontroller()
 
 void pongcontroller::play()
 {
-	// Timing variables
-	bool left_win = false;
-	int countdown = 3;
-	float current_time;
-	float last_frame;
-	float delta_time;
-
 	GLFWwindow *window = view->get_window();
+	while(!glfwWindowShouldClose(window)){
+		// Timing variables
+		bool left_win = false;
+		int countdown = 3;
+		float current_time;
+		float last_frame;
+		float delta_time;
 
-	// Countdown to start of game
-	pong_model->update(0.0f);
-	pong_model->get_positions(bx, by, lx, ly, rx, ry);
-	for(int i = countdown; i > 0 && !glfwWindowShouldClose(window); i--){
-		view->render_pong(i, i, bx, by, lx, ly, rx, ry);
-		glfwPollEvents();
+		// Countdown to start of game
+		pong_model->update(0.0f);
+		pong_model->get_positions(bx, by, lx, ly, rx, ry);
+		for(int i = countdown; i > 0 && !glfwWindowShouldClose(window); i--){
+			view->render_pong(i, i, bx, by, lx, ly, rx, ry);
+			glfwPollEvents();
 
-		// Wait for 1 second
-		std::this_thread::sleep_for(std::chrono::milliseconds(500));
-		audio->play_sfx(i > 1 ? audioplayer::COUNT : audioplayer::GO);
-		std::this_thread::sleep_for(std::chrono::milliseconds(500));
-	}
+			// Wait for 1 second
+			std::this_thread::sleep_for(std::chrono::milliseconds(500));
+			audio->play_sfx(i > 1 ? audioplayer::COUNT : audioplayer::GO);
+			std::this_thread::sleep_for(std::chrono::milliseconds(500));
+		}
 
-	last_frame = glfwGetTime();
-	delta_time = 0.0f;
-	pong_model->get_scores(score_left, score_right);
-	// Game loop
-	while(!glfwWindowShouldClose(window) && pong_model->get_state() != pong::GAMEOVER){
-		// std::cout << "RENDERING..." << std::endl;
-		// process input
-		process_input(window);
+		last_frame = glfwGetTime();
+		delta_time = 0.0f;
+		pong_model->get_scores(score_left, score_right);
+		// Game loop
+		while(!glfwWindowShouldClose(window) && pong_model->get_state() != pong::GAMEOVER){
+			// std::cout << "RENDERING..." << std::endl;
+			// process input
+			process_input(window);
 
-		// Get delta time
-		current_time = glfwGetTime();
-		delta_time = current_time - last_frame;
-		last_frame = current_time;
+			// Get delta time
+			current_time = glfwGetTime();
+			delta_time = current_time - last_frame;
+			last_frame = current_time;
 
-		// Update pong model
-		pong_model->update(delta_time);
+			// Update pong model
+			pong_model->update(delta_time);
 
-		if(pong_model->get_state() != pong::GAMEOVER){
-			pong_model->get_positions(bx, by, lx, ly, rx, ry);
-			// Render pong view
+			if(pong_model->get_state() != pong::GAMEOVER){
+				pong_model->get_positions(bx, by, lx, ly, rx, ry);
+				// Render pong view
+				view->render_pong(score_left, score_right, bx, by, lx, ly, rx, ry);
+			}
+			
+			glfwPollEvents();
+		}
+
+		left_win = score_left > score_right;
+
+		if(left_win) score_right = score_left + 1;
+		else score_left = score_right + 1;
+
+		// Blink the winner's score
+		for(int i = 0; i < 3 && !glfwWindowShouldClose(window); i++){
+			if(i == 0){
+				audio->play_sfx(audioplayer::GAMEOVER);
+			}
+			view->render_pong(left_win ? -1 : score_left, !left_win ? -1 : score_right, bx, by, lx, ly, rx, ry);
+			std::this_thread::sleep_for(std::chrono::seconds(1));
+			glfwPollEvents();
+
 			view->render_pong(score_left, score_right, bx, by, lx, ly, rx, ry);
+			std::this_thread::sleep_for(std::chrono::seconds(1));
+			glfwPollEvents();
 		}
-		
-		glfwPollEvents();
+
+		if(!glfwWindowShouldClose(window)){
+			std::this_thread::sleep_for(std::chrono::seconds(1));
+			glfwPollEvents();
+			pong_model->reset();
+		}
 	}
 
-	left_win = score_left > score_right;
-
-	if(left_win) score_right = score_left + 1;
-	else score_left = score_right + 1;
-
-	// Blink the winner's score
-	for(int i = 0; i < 3 && !glfwWindowShouldClose(window); i++){
-		if(i == 0){
-			audio->play_sfx(audioplayer::GAMEOVER);
-		}
-		view->render_pong(left_win ? -1 : score_left, !left_win ? -1 : score_right, bx, by, lx, ly, rx, ry);
-		std::this_thread::sleep_for(std::chrono::seconds(1));
-		glfwPollEvents();
-
-		view->render_pong(score_left, score_right, bx, by, lx, ly, rx, ry);
-		std::this_thread::sleep_for(std::chrono::seconds(1));
-		glfwPollEvents();
-	}
-
-	std::this_thread::sleep_for(std::chrono::seconds(1));
-	glfwSetWindowShouldClose(window, true);
-	glfwPollEvents();	
 	std::cout << "Goodbye!" << std::endl;
 }
 
