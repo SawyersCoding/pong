@@ -8,6 +8,7 @@ audioplayer::audioplayer()
 	buffers[GO].loadFromFile("resources/audio/go.wav");
 	buffers[PING].loadFromFile("resources/audio/ping.wav");
 	buffers[POINT].loadFromFile("resources/audio/point.wav");
+	buffers[GAMEOVER].loadFromFile("resources/audio/gameover.wav");
 
 	for(int i = 0; i < NSOUNDS; i++){
 		sounds[i].setBuffer(buffers[i]);

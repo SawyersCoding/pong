@@ -9,11 +9,12 @@ class audioplayer{
 			COUNT = 0,
 			GO = 1,
 			PING = 2,
-			POINT = 3
+			POINT = 3,
+			GAMEOVER = 4
 		};
 
 	private:
-		const static int NSOUNDS = 4;
+		const static int NSOUNDS = 5;
 		sf::SoundBuffer buffers[NSOUNDS];
 		sf::Sound sounds[NSOUNDS];
 

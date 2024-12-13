@@ -15,7 +15,7 @@
 
 Pong created entirly from scratch with OpenGL.
 
-"Art" and text was created using [GIMP](https://www.gimp.org/) or shader shenanigans. SFX were created using [jsfxr](https://sfxr.me/).
+"Art" and text was created using [GIMP](https://www.gimp.org/) or shader shenanigans. SFX were created using [jsfxr](https://sfxr.me/). Game over tune was made with [FamiStudio](https://famistudio.org/).
 
 ## Compiling
 <!-- Install dependencies -->

@@ -86,6 +86,9 @@ void pongcontroller::play()
 
 	// Blink the winner's score
 	for(int i = 0; i < 3 && !glfwWindowShouldClose(window); i++){
+		if(i == 0){
+			audio->play_sfx(audioplayer::GAMEOVER);
+		}
 		view->render_pong(left_win ? -1 : score_left, !left_win ? -1 : score_right, bx, by, lx, ly, rx, ry);
 		std::this_thread::sleep_for(std::chrono::seconds(1));
 		glfwPollEvents();
