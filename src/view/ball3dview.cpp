@@ -1,19 +1,18 @@
-#include "paddle3dview.hpp"
+#include "ball3dview.hpp"
 
-paddle3dview::paddle3dview(float paddle_width, float paddle_height)
+ball3dview::ball3dview(float ball_size)
 {
-	float half_width = paddle_width / 2.0f;
-	float half_height = paddle_height / 2.0f;
+	float half_size = ball_size / 2.0f;
 
 	vertices = new float[24]{
-		-half_width, -half_height, -half_width, // 0
-		 half_width,  half_height, -half_width, // 1
-		 half_width, -half_height, -half_width, // 2
-		-half_width,  half_height, -half_width, // 3
-		-half_width, -half_height,  half_width, // 4
-		 half_width,  half_height,  half_width, // 5
-		 half_width, -half_height,  half_width, // 6
-		-half_width,  half_height,  half_width  // 7
+		-half_size, -half_size, -half_size, // 0
+		 half_size,  half_size, -half_size, // 1
+		 half_size, -half_size, -half_size, // 2
+		-half_size,  half_size, -half_size, // 3
+		-half_size, -half_size,  half_size, // 4
+		 half_size,  half_size,  half_size, // 5
+		 half_size, -half_size,  half_size, // 6
+		-half_size,  half_size,  half_size  // 7
 	};
 
 	indeces = new unsigned int[36]{
@@ -50,7 +49,7 @@ paddle3dview::paddle3dview(float paddle_width, float paddle_height)
 	glBindVertexArray(0);
 }
 
-paddle3dview::~paddle3dview()
+ball3dview::~ball3dview()
 {
 	delete[] vertices;
 	delete[] indeces;
@@ -59,13 +58,14 @@ paddle3dview::~paddle3dview()
 	glDeleteBuffers(1, &EBO);
 }
 
-void paddle3dview::render_paddle(shader *pong_shader, float px, float py)
+void ball3dview::render_ball(shader *pong_shader, float bx, float by)
 {
 	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(px, py, 0.0f));
+	model = glm::translate(model, glm::vec3(bx, by, 0.0f));
 	pong_shader->use();
 	pong_shader->set_mat4("model", model);
 	pong_shader->set_vec3("color", color);
+
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);

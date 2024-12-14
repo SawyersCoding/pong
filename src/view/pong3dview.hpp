@@ -1,0 +1,43 @@
+#pragma once
+
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+#include "paddle3dview.hpp"
+#include "ball3dview.hpp"
+#include "digitview.hpp"
+#include "shader/shader.hpp"
+
+class pong3dview{
+
+	private:
+		const static int PX_PER_UNIT = 25;
+		constexpr static float DIGIT_HEIGHT_FACTOR = 0.8f;
+		constexpr static glm::vec3 CAMERA_UP = glm::vec3(0.0f, 0.0f,  1.0f);
+
+	private:
+		int px_width;
+		int px_height;
+		int px_score_height;
+		float dx_left, dx_right, dy;
+		shader *pong_shader;
+		shader *digit_shader;
+		digitview *dview;
+		paddle3dview *pview;
+		ball3dview *bview;
+		GLFWwindow *window;
+		glm::vec3 camera_pos;
+		glm::vec3 camera_target;
+		glm::mat4 projection;
+		glm::mat4 view;
+
+	public:
+		pong3dview(int width, int height, int score_height, float paddle_width_left, float paddle_height_left, float paddle_width_right, float paddle_height_right, float ball_size);
+		~pong3dview();
+
+	public:
+		void render_pong(int score_left, int score_right, float bx, float by, float lx, float ly, float rx, float ry);
+		GLFWwindow* get_window();
+
+	private:
+		static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+};
