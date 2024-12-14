@@ -12,7 +12,10 @@ class pong3dview{
 	private:
 		const static int PX_PER_UNIT = 25;
 		constexpr static float DIGIT_HEIGHT_FACTOR = 0.8f;
-		constexpr static glm::vec3 CAMERA_UP = glm::vec3(0.0f, 0.0f,  1.0f);
+		constexpr static glm::vec3 CAMERA_UP = glm::vec3(0.0f, 0.0f, 1.0f);
+		constexpr static glm::vec3 UI_CAMERA_POS = glm::vec3(0.0f, 0.0f, 5.0f);
+		constexpr static glm::vec3 UI_CAMERA_TARGET = glm::vec3(0.0f);
+		constexpr static glm::vec3 UI_CAMERA_UP = glm::vec3(0.0f, 1.0f, 0.0f);
 
 	private:
 		int px_width;
@@ -29,6 +32,8 @@ class pong3dview{
 		glm::vec3 camera_target;
 		glm::mat4 projection;
 		glm::mat4 view;
+		glm::mat4 ui_projection;
+		glm::mat4 ui_view;
 
 	public:
 		pong3dview(int width, int height, int score_height, float paddle_width_left, float paddle_height_left, float paddle_width_right, float paddle_height_right, float ball_size);

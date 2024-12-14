@@ -14,7 +14,7 @@ pongcontroller::pongcontroller()
 	pong_model->add_collisionlistener(this);
 	audio = new audioplayer();
 
-	view = new pongview(pong_model->get_width(), 
+	view = new pong3dview(pong_model->get_width(), 
 						pong_model->get_height(), 
 						pong_model->get_score_height(), 
 						settings->paddle_width_left, 
@@ -27,6 +27,7 @@ pongcontroller::pongcontroller()
 pongcontroller::~pongcontroller()
 {
 	pong_model->clear_scorechangelisteners();
+	pong_model->clear_collisionlisteners();
 	delete settings;
 	delete pong_model;
 	delete view;
