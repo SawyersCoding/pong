@@ -41,10 +41,10 @@ void pongcontroller::play()
 	GLFWwindow *window = view->get_window();
 
 	while(glfwGetKey(window, GLFW_KEY_ENTER) != GLFW_PRESS && !glfwWindowShouldClose(window)){		
-		if(glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS){
+		if(glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_KP_1) == GLFW_PRESS){
 			nplayers = 1;
 		}
-		else if(glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS){
+		else if(glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_KP_2) == GLFW_PRESS){
 			nplayers = 2;
 		}
 
