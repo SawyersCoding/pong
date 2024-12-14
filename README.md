@@ -17,7 +17,7 @@
 
 I've been steadily going through [this site](https://learnopengl.com/) to learn OpenGL. One day, the site was down (restored within a day), so I decided to test what I already knew and make Pong from scratch with OpenGL. This is the result.
 
-"Art" and text were created using [GIMP](https://www.gimp.org/). Soudn effects were created using [jsfxr](https://sfxr.me/). The [game over tune](resources/audio/gameover.wav) was made with [FamiStudio](https://famistudio.org/).
+"Art" and text were created using [GIMP](https://www.gimp.org/). Sound effects were created using [jsfxr](https://sfxr.me/). The [game over tune](resources/audio/gameover.wav) was made with [FamiStudio](https://famistudio.org/).
 
 ## Compiling
 

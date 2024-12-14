@@ -1,5 +1,9 @@
-#include "pongcontroller.hpp"
+
 #include <thread>
+#include "pongcontroller.hpp"
+#include "paddlecontroller.hpp"
+#include "playerpaddlecontroller.hpp"
+#include "basicpaddlecontroller.hpp"
 
 pongcontroller::pongcontroller()
 {
@@ -31,7 +35,37 @@ pongcontroller::~pongcontroller()
 
 void pongcontroller::play()
 {
+	int nplayers = 1;
+	paddlecontroller *lp_controller, *rp_controller;
+
 	GLFWwindow *window = view->get_window();
+
+	while(glfwGetKey(window, GLFW_KEY_ENTER) != GLFW_PRESS && !glfwWindowShouldClose(window)){		
+		if(glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS){
+			nplayers = 1;
+		}
+		else if(glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS){
+			nplayers = 2;
+		}
+
+		pong_model->get_positions(bx, by, lx, ly, rx, ry);
+		// Render pong view
+		view->render_pong(nplayers, nplayers, bx, by, lx, ly, rx, ry);
+
+		glfwPollEvents();
+		check_exit(window);
+	}
+
+	lp_controller = new playerpaddlecontroller(GLFW_KEY_W, GLFW_KEY_S, window, pong_model, pong::LEFT_UP, pong::LEFT_DOWN, pong::LEFT_NONE);
+	if(nplayers == 1){
+		rp_controller = new basicpaddlecontroller(pong_model, &by, &ry, pong::RIGHT_UP, pong::RIGHT_DOWN, pong::RIGHT_NONE);
+	}
+	else {
+		rp_controller = new playerpaddlecontroller(GLFW_KEY_UP, GLFW_KEY_DOWN, window, pong_model, pong::RIGHT_UP, pong::RIGHT_DOWN, pong::RIGHT_NONE);
+	}
+
+	// rp_controller = new playerpaddlecontroller(GLFW_KEY_UP, GLFW_KEY_DOWN, window, pong_model, pong::RIGHT_UP, pong::RIGHT_DOWN, pong::RIGHT_NONE);
+
 	while(!glfwWindowShouldClose(window)){
 		// Timing variables
 		bool left_win = false;
@@ -58,9 +92,10 @@ void pongcontroller::play()
 		pong_model->get_scores(score_left, score_right);
 		// Game loop
 		while(!glfwWindowShouldClose(window) && pong_model->get_state() != pong::GAMEOVER){
-			// std::cout << "RENDERING..." << std::endl;
 			// process input
-			process_input(window);
+			lp_controller->process_input();
+			rp_controller->process_input();
+			check_exit(window);
 
 			// Get delta time
 			current_time = glfwGetTime();
@@ -108,32 +143,10 @@ void pongcontroller::play()
 	std::cout << "Goodbye!" << std::endl;
 }
 
-void pongcontroller::process_input(GLFWwindow *window)
+void pongcontroller::check_exit(GLFWwindow *window)
 {
 	if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS){
 		glfwSetWindowShouldClose(window, true);
-	}
-
-	// WASD for left paddle
-	if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS){
-		pong_model->paddle_command(pong::LEFT_UP);
-	}	
-	else if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS){
-		pong_model->paddle_command(pong::LEFT_DOWN);
-	}
-	else{
-		pong_model->paddle_command(pong::LEFT_NONE);
-	}
-
-	// arrow keys for right paddle
-	if(glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS){
-		pong_model->paddle_command(pong::RIGHT_UP);
-	}
-	else if(glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS){
-		pong_model->paddle_command(pong::RIGHT_DOWN);
-	}
-	else{
-		pong_model->paddle_command(pong::RIGHT_NONE);
 	}
 }
 
