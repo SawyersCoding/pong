@@ -17,7 +17,7 @@
 
 I've been steadily going through [this site](https://learnopengl.com/) to learn OpenGL. One day, the site was down (restored within a day), so I decided to test what I already knew and make Pong from scratch with OpenGL. This is the result.
 
-"Art" and text were created using [GIMP](https://www.gimp.org/). Soudn effects were created using [jsfxr](https://sfxr.me/). The [game over tune](resources/audio/gameover.wav) was made with [FamiStudio](https://famistudio.org/).
+"Art" and text were created using [GIMP](https://www.gimp.org/). Sound effects were created using [jsfxr](https://sfxr.me/). The [game over tune](resources/audio/gameover.wav) was made with [FamiStudio](https://famistudio.org/).
 
 ## Compiling
 
@@ -42,7 +42,9 @@ To complete the compilation, simply run the makefile with
 
 Your executable will be found at `bin/pong`.
 
-## Playing
+## How to Play
+
+Upon launching the game, you'll see a static pong window where the score at the top of the window is set to 1 for both players. This is not a score at this point! This is the number of players. Use your number `1` and `2` keys to change the number of players, and press `Enter` when ready to play. If you choose to play in single player mode, you will be controlling the left paddle.
 
 The left paddle is controlled using the `W` and `S` keys to move up and down respectively. The same is true for the right paddle using the `UP` and `DOWN` arrow keys. Press the `ESC` key to close the application.
 
@@ -52,5 +54,4 @@ The winner is the first to get to 10 points.
 
 ## To do
 
- - Optional single player mode
  - 3D perspective version

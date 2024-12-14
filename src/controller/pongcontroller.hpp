@@ -25,7 +25,7 @@ class pongcontroller : public scorechangelistener, public collisionlistener{
 
 	public:
 		void play();
-		void process_input(GLFWwindow *window);
+		void check_exit(GLFWwindow *window);
 		void on_score_changed() override;
 		void on_collision() override;
 
