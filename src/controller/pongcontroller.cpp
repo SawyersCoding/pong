@@ -57,12 +57,12 @@ void pongcontroller::play()
 		check_exit(window);
 	}
 
-	lp_controller = new playerpaddlecontroller(GLFW_KEY_W, GLFW_KEY_S, window, pong_model, pong::LEFT_UP, pong::LEFT_DOWN, pong::LEFT_NONE);
+	lp_controller = new playerpaddlecontroller(GLFW_KEY_A, GLFW_KEY_D, window, pong_model, pong::LEFT_UP, pong::LEFT_DOWN, pong::LEFT_NONE);
 	if(nplayers == 1){
 		rp_controller = new basicpaddlecontroller(pong_model, &by, &ry, pong::RIGHT_UP, pong::RIGHT_DOWN, pong::RIGHT_NONE);
 	}
 	else {
-		rp_controller = new playerpaddlecontroller(GLFW_KEY_UP, GLFW_KEY_DOWN, window, pong_model, pong::RIGHT_UP, pong::RIGHT_DOWN, pong::RIGHT_NONE);
+		rp_controller = new playerpaddlecontroller(GLFW_KEY_LEFT, GLFW_KEY_RIGHT, window, pong_model, pong::RIGHT_UP, pong::RIGHT_DOWN, pong::RIGHT_NONE);
 	}
 
 	// rp_controller = new playerpaddlecontroller(GLFW_KEY_UP, GLFW_KEY_DOWN, window, pong_model, pong::RIGHT_UP, pong::RIGHT_DOWN, pong::RIGHT_NONE);

@@ -48,14 +48,15 @@ pong3dview::pong3dview(int width, int height, int score_height, float paddle_wid
 
 	// Initialize shader
 	pong_shader = new shader("src/view/shader/vertexshader.glsl", "src/view/shader/fragmentshader.glsl");
-	digit_shader = new shader("src/view/shader/digitvertexshader.glsl", "src/view/shader/digitfragmentshader.glsl");	
+	single_texture_shader = new shader("src/view/shader/singletexturevertexshader.glsl", "src/view/shader/singletexturefragmentshader.glsl");	
 
 	// Initialize views
 	pview = new paddle3dview(paddle_width_left, paddle_height_left);
 	bview = new ball3dview(ball_size);
 	dview = new digitview(score_height * DIGIT_HEIGHT_FACTOR);
+	tex_view = new staticquadtextureview("resources/pong_ground.png");
 
-	camera_pos = glm::vec3(-0.4f * width, width / 4.0f, 10.0f);
+	camera_pos = glm::vec3(-0.4f * width, height / 2.0, 10.0f);
 	camera_target = glm::vec3(width, height / 2.0f, 0.0f);
 	view = glm::lookAt(camera_pos, camera_target, CAMERA_UP);
 	projection = glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 2.0f * width);
@@ -67,9 +68,9 @@ pong3dview::pong3dview(int width, int height, int score_height, float paddle_wid
 	ui_projection = glm::ortho(0.0f, (float)width, 0.0f, (float)height, 0.1f, 100.0f);
 	ui_view = glm::lookAt(UI_CAMERA_POS, UI_CAMERA_TARGET, UI_CAMERA_UP);
 
-	digit_shader->use();
-	digit_shader->set_mat4("projection", ui_projection);
-	digit_shader->set_mat4("view", ui_view);
+	single_texture_shader->use();
+	single_texture_shader->set_mat4("projection", ui_projection);
+	single_texture_shader->set_mat4("view", ui_view);
 }
 
 pong3dview::~pong3dview()
@@ -86,12 +87,26 @@ void pong3dview::render_pong(int score_left, int score_right, float bx, float by
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	glm::mat4 model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(0.5f * px_width / PX_PER_UNIT, 0.5 * px_height / PX_PER_UNIT, -1.0f));
+	// model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+	model = glm::scale(model, glm::vec3(0.5f * px_width / PX_PER_UNIT, 0.5f * px_height / PX_PER_UNIT, 1.0f));
+	
+	single_texture_shader->use();
+	single_texture_shader->set_mat4("model", model);
+	single_texture_shader->set_mat4("view", view);
+	single_texture_shader->set_mat4("projection", projection);
+	tex_view->render_quad(single_texture_shader);
+	
 	pview->render_paddle(pong_shader, lx, ly);
 	pview->render_paddle(pong_shader, rx, ry);
 	bview->render_ball(pong_shader, bx, by);
 
-	dview->render_digit(digit_shader, score_left, dx_left, dy);
-	dview->render_digit(digit_shader, score_right, dx_right, dy);
+	single_texture_shader->use();
+	single_texture_shader->set_mat4("projection", ui_projection);
+	single_texture_shader->set_mat4("view", ui_view);
+	dview->render_digit(single_texture_shader, score_left, dx_left, dy);
+	dview->render_digit(single_texture_shader, score_right, dx_right, dy);
 
 	glfwSwapBuffers(window);
 }

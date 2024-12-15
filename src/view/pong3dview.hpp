@@ -5,6 +5,7 @@
 #include "paddle3dview.hpp"
 #include "ball3dview.hpp"
 #include "digitview.hpp"
+#include "staticquadtextureview.hpp"
 #include "shader/shader.hpp"
 
 class pong3dview{
@@ -23,10 +24,11 @@ class pong3dview{
 		int px_score_height;
 		float dx_left, dx_right, dy;
 		shader *pong_shader;
-		shader *digit_shader;
+		shader *single_texture_shader;
 		digitview *dview;
 		paddle3dview *pview;
 		ball3dview *bview;
+		staticquadtextureview *tex_view;
 		GLFWwindow *window;
 		glm::vec3 camera_pos;
 		glm::vec3 camera_target;

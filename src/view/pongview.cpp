@@ -48,7 +48,7 @@ pongview::pongview(int width, int height, int score_height, float paddle_width_l
 
 	// Initialize shader
 	pong_shader = new shader("src/view/shader/vertexshader.glsl", "src/view/shader/fragmentshader.glsl");
-	digit_shader = new shader("src/view/shader/digitvertexshader.glsl", "src/view/shader/digitfragmentshader.glsl");
+	single_texture_shader = new shader("src/view/shader/singletexturevertexshader.glsl", "src/view/shader/singletexturefragmentshader.glsl");
 
 	dview = new digitview(score_height * DIGIT_HEIGHT_FACTOR);
 	bview = new ballview(ball_size);
@@ -60,9 +60,9 @@ pongview::pongview(int width, int height, int score_height, float paddle_width_l
 	pong_shader->use();
 	pong_shader->set_mat4("view", view);
 	pong_shader->set_mat4("projection", projection);
-	digit_shader->use();
-	digit_shader->set_mat4("view", view);
-	digit_shader->set_mat4("projection", projection);
+	single_texture_shader->use();
+	single_texture_shader->set_mat4("view", view);
+	single_texture_shader->set_mat4("projection", projection);
 }
 
 pongview::~pongview()
@@ -71,7 +71,7 @@ pongview::~pongview()
 	delete bview;
 	delete pview;
 	delete pong_shader;
-	delete digit_shader;
+	delete single_texture_shader;
 	glfwTerminate();
 }
 
@@ -81,8 +81,8 @@ void pongview::render_pong(int score_left, int score_right, float bx, float by, 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	dview->render_digit(digit_shader, score_left, dx_left, dy);
-	dview->render_digit(digit_shader, score_right, dx_right, dy);
+	dview->render_digit(single_texture_shader, score_left, dx_left, dy);
+	dview->render_digit(single_texture_shader, score_right, dx_right, dy);
 	bview->render_ball(pong_shader, bx, by);
 	pview->render_paddle(pong_shader, lx, ly);
 	pview->render_paddle(pong_shader, rx, ry);
