@@ -14,7 +14,7 @@ pongcontroller::pongcontroller()
 	pong_model->add_collisionlistener(this);
 	audio = new audioplayer();
 
-	view = new pongview(pong_model->get_width(), 
+	view = new pong3dview(pong_model->get_width(), 
 						pong_model->get_height(), 
 						pong_model->get_score_height(), 
 						settings->paddle_width_left, 
@@ -27,6 +27,7 @@ pongcontroller::pongcontroller()
 pongcontroller::~pongcontroller()
 {
 	pong_model->clear_scorechangelisteners();
+	pong_model->clear_collisionlisteners();
 	delete settings;
 	delete pong_model;
 	delete view;
@@ -56,12 +57,12 @@ void pongcontroller::play()
 		check_exit(window);
 	}
 
-	lp_controller = new playerpaddlecontroller(GLFW_KEY_W, GLFW_KEY_S, window, pong_model, pong::LEFT_UP, pong::LEFT_DOWN, pong::LEFT_NONE);
+	lp_controller = new playerpaddlecontroller(GLFW_KEY_A, GLFW_KEY_D, window, pong_model, pong::LEFT_UP, pong::LEFT_DOWN, pong::LEFT_NONE);
 	if(nplayers == 1){
 		rp_controller = new basicpaddlecontroller(pong_model, &by, &ry, pong::RIGHT_UP, pong::RIGHT_DOWN, pong::RIGHT_NONE);
 	}
 	else {
-		rp_controller = new playerpaddlecontroller(GLFW_KEY_UP, GLFW_KEY_DOWN, window, pong_model, pong::RIGHT_UP, pong::RIGHT_DOWN, pong::RIGHT_NONE);
+		rp_controller = new playerpaddlecontroller(GLFW_KEY_LEFT, GLFW_KEY_RIGHT, window, pong_model, pong::RIGHT_UP, pong::RIGHT_DOWN, pong::RIGHT_NONE);
 	}
 
 	// rp_controller = new playerpaddlecontroller(GLFW_KEY_UP, GLFW_KEY_DOWN, window, pong_model, pong::RIGHT_UP, pong::RIGHT_DOWN, pong::RIGHT_NONE);

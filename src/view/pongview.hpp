@@ -22,7 +22,7 @@ class pongview{
 		int px_score_height;
 		float dx_left, dx_right, dy;
 		shader *pong_shader;
-		shader *digit_shader;
+		shader *single_texture_shader;
 		digitview *dview;
 		ballview *bview;
 		paddleview *pview;

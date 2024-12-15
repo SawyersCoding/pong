@@ -4,7 +4,7 @@
 #include "../model/pong.hpp"
 #include "../model/pongsettings.hpp"
 #include "../model/scorechangelistener.hpp"
-#include "../view/pongview.hpp"
+#include "../view/pong3dview.hpp"
 #include "../view/audio/audioplayer.hpp"
 
 class pongcontroller : public scorechangelistener, public collisionlistener{
@@ -16,7 +16,7 @@ class pongcontroller : public scorechangelistener, public collisionlistener{
 		float bx, by, lx, ly, rx, ry;
 		pong *pong_model;
 		pongsettings *settings;
-		pongview *view;
+		pong3dview *view;
 		audioplayer *audio;
 
 	public:
