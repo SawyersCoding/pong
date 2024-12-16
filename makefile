@@ -32,5 +32,14 @@ bin:
 bin/obj:
 	mkdir -p $@
 
+$(EXE).zip: $(EXE)
+	mkdir -p bin/resources/audio
+	mkdir -p bin/src/view/shader
+	cp -r resources/*.png bin/resources
+	cp -r resources/audio/*.wav bin/resources/audio
+	cp -r src/view/shader/*.glsl bin/src/view/shader
+	zip -r $@ bin/**
+
 clean:
 	rm -rf bin
+	rm -rf $(EXE).zip
