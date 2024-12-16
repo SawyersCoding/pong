@@ -2,8 +2,7 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "paddle3dview.hpp"
-#include "ball3dview.hpp"
+#include "rectangularprismview.hpp"
 #include "digitview.hpp"
 #include "staticquadtextureview.hpp"
 #include "shader/shader.hpp"
@@ -26,8 +25,8 @@ class pong3dview{
 		shader *pong_shader;
 		shader *single_texture_shader;
 		digitview *dview;
-		paddle3dview *pview;
-		ball3dview *bview;
+		rectangularprismview *pview;
+		rectangularprismview *bview;
 		staticquadtextureview *tex_view;
 		GLFWwindow *window;
 		glm::vec3 camera_pos;
