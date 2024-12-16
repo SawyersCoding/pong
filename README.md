@@ -46,7 +46,7 @@ Your executable will be found at `bin/pong`.
 
 Upon launching the game, you'll see a static pong window where the score at the top of the window is set to 1 for both players. This is not a score at this point! This is the number of players. Use your number `1` and `2` keys to change the number of players, and press `Enter` when ready to play. If you choose to play in single player mode, you will be controlling the near paddle.
 
-The near paddle is controlled using the `A` and `D` keys to move near and right respectively. The same is true for the far paddle using the `LEFT` and `RIGHT` arrow keys. Press the `ESC` key to close the application.
+The near paddle is controlled using the `A` and `D` keys to move left and right respectively. The same is true for the far paddle using the `LEFT` and `RIGHT` arrow keys. Press the `ESC` key to close the application.
 
 Each time the ball hits a paddle, the ball's speed will increase. The player that most recently lost a point will be given the first serve of the next round. The near player will always start with the first serve of the game.
 
