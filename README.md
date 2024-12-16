@@ -51,7 +51,3 @@ The near paddle is controlled using the `A` and `D` keys to move near and right 
 Each time the ball hits a paddle, the ball's speed will increase. The player that most recently lost a point will be given the first serve of the next round. The near player will always start with the first serve of the game.
 
 The winner is the first to get to 10 points.
-
-## To do
-
- - Cool lighting

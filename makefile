@@ -6,7 +6,7 @@ EXE=pong
 LIBS=-lglfw -lsfml-audio
 
 # All source files
-SRC=src/main.cpp src/model/pong.cpp src/view/pongview.cpp src/view/pong3dview.cpp src/view/glad.c src/view/paddleview.cpp src/view/paddle3dview.cpp src/view/ballview.cpp src/view/ball3dview.cpp src/view/staticquadtextureview.cpp src/view/rectangularprismview.cpp src/view/shader/shader.cpp src/controller/pongcontroller.cpp src/controller/playerpaddlecontroller.cpp src/controller/basicpaddlecontroller.cpp src/view/digitview.cpp src/view/stb_image/stb_image.cpp src/view/audio/audioplayer.cpp
+SRC=src/main.cpp src/model/pong.cpp src/view/pong3dview.cpp src/view/glad.c src/view/staticquadtextureview.cpp src/view/rectangularprismview.cpp src/view/shader/shader.cpp src/view/digitview.cpp src/view/stb_image/stb_image.cpp src/view/audio/audioplayer.cpp src/controller/pongcontroller.cpp src/controller/playerpaddlecontroller.cpp src/controller/basicpaddlecontroller.cpp
 
 # All object files
 OBJ=$(SRC:src/%.cpp=bin/obj/%.o)
