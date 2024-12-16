@@ -51,12 +51,14 @@ pong3dview::pong3dview(int width, int height, int score_height, float paddle_wid
 	single_texture_shader = new shader("src/view/shader/singletexturevertexshader.glsl", "src/view/shader/singletexturefragmentshader.glsl");	
 
 	// Initialize views
-	pview = new paddle3dview(paddle_width_left, paddle_height_left);
-	bview = new ball3dview(ball_size);
+	pview = new rectangularprismview(paddle_width_left, paddle_height_left, paddle_width_left);
+	bview = new rectangularprismview(ball_size, ball_size, ball_size);
+	// pview = new paddle3dview(paddle_width_left, paddle_height_left);
+	// bview = new ball3dview(ball_size);
 	dview = new digitview(score_height * DIGIT_HEIGHT_FACTOR);
 	tex_view = new staticquadtextureview("resources/pong_ground.png");
 
-	camera_pos = glm::vec3(-0.4f * width, height / 2.0, 10.0f);
+	camera_pos = glm::vec3(-0.4f * width, height / 2.0f, 10.0f);
 	camera_target = glm::vec3(width, height / 2.0f, 0.0f);
 	view = glm::lookAt(camera_pos, camera_target, CAMERA_UP);
 	projection = glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 2.0f * width);
@@ -64,6 +66,8 @@ pong3dview::pong3dview(int width, int height, int score_height, float paddle_wid
 	pong_shader->use();
 	pong_shader->set_mat4("projection", projection);
 	pong_shader->set_mat4("view", view);
+	pong_shader->set_vec3("lightcolor", glm::vec3(1.0f));
+	pong_shader->set_vec3("lightPos", glm::vec3(-0.4f * width, height, 10.0f));
 
 	ui_projection = glm::ortho(0.0f, (float)width, 0.0f, (float)height, 0.1f, 100.0f);
 	ui_view = glm::lookAt(UI_CAMERA_POS, UI_CAMERA_TARGET, UI_CAMERA_UP);
@@ -98,9 +102,9 @@ void pong3dview::render_pong(int score_left, int score_right, float bx, float by
 	single_texture_shader->set_mat4("projection", projection);
 	tex_view->render_quad(single_texture_shader);
 	
-	pview->render_paddle(pong_shader, lx, ly);
-	pview->render_paddle(pong_shader, rx, ry);
-	bview->render_ball(pong_shader, bx, by);
+	pview->render(pong_shader, lx, ly, 0);
+	pview->render(pong_shader, rx, ry, 0);
+	bview->render(pong_shader, bx, by, 0);
 
 	single_texture_shader->use();
 	single_texture_shader->set_mat4("projection", ui_projection);
