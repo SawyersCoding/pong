@@ -54,6 +54,9 @@ void pong::update(float dt)
 
 void pong::reset()
 {
+	paddle_left.transform.y = height / 2.0f;
+	paddle_right.transform.y = height / 2.0f;
+
 	score_left = 0;
 	score_right = 0;
 	ball.transform.x = width / 2.0f;
